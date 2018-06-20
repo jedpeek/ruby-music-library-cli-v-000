@@ -7,7 +7,10 @@ class MusicImporter
   end
 
   def files
-    files = Dir.glob("#{@path}")
-    binding.pry
+    files = Dir.entries(@path).delete_if{|file| file.length < 4}
+  end
+
+  def import
+    files.each{|song| Song.create_from_filename(song)}
   end
 end
